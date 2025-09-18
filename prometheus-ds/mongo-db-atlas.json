@@ -1,0 +1,5318 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "prometheus",
+          "uid": "r7brUZV4z"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "#6ed0e0",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "Visualize Amazon MongoDB Atlas metrics",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
+  "id": 135,
+  "links": [
+    {
+      "asDropdown": false,
+      "icon": "doc",
+      "includeVars": false,
+      "keepTime": false,
+      "tags": [],
+      "targetBlank": true,
+      "title": "MongoDB",
+      "tooltip": "MongoDB metrics",
+      "type": "link",
+      "url": "https://www.mongodb.com/resources/products/capabilities/how-to-monitor-mongodb-and-what-metrics-to-monitor"
+    }
+  ],
+  "liveNow": false,
+  "panels": [
+    {
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 129,
+      "title": "Cluster",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "r7brUZV4z"
+      },
+      "description": "If it is UP it means that all MongoDB instances are UP",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 0,
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "red",
+                  "index": 1,
+                  "text": "DOWN"
+                },
+                "1": {
+                  "color": "green",
+                  "index": 0,
+                  "text": "UP"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 3,
+        "x": 0,
+        "y": 1
+      },
+      "hideTimeOverride": false,
+      "id": 102,
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "max"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {},
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "min(adot_mongodb_up{cl_name=~\"$cluster\"})",
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "",
+          "metric": "",
+          "range": true,
+          "refId": "A",
+          "step": 300
+        }
+      ],
+      "title": "Status",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "r7brUZV4z"
+      },
+      "description": "Shows the storage engine used on the instance (inMemory or wiredTiger)",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 0,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 3,
+        "x": 3,
+        "y": 1
+      },
+      "hideTimeOverride": true,
+      "id": 109,
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {},
+        "textMode": "name",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "max by(mongodb_version)(adot_mongodb_info{cl_name=~\"$cluster\"})",
+          "instant": true,
+          "interval": "5m",
+          "intervalFactor": 1,
+          "legendFormat": "{{mongodb_version}}",
+          "metric": "",
+          "range": false,
+          "refId": "A",
+          "step": 300
+        }
+      ],
+      "timeFrom": "1m",
+      "title": "Version",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "r7brUZV4z"
+      },
+      "description": "Shows the storage engine used on the instance (inMemory or wiredTiger)",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 0,
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "index": 1,
+                  "text": "inMemory"
+                },
+                "1": {
+                  "index": 0,
+                  "text": "wiredTiger"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 3,
+        "x": 6,
+        "y": 1
+      },
+      "hideTimeOverride": true,
+      "id": 92,
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {},
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "max(adot_mongodb_storageEngine_persistent{cl_name=~\"$cluster\"})",
+          "instant": true,
+          "interval": "5m",
+          "intervalFactor": 1,
+          "legendFormat": "",
+          "metric": "",
+          "range": false,
+          "refId": "A",
+          "step": 300
+        }
+      ],
+      "timeFrom": "1m",
+      "title": "Storage Engine",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "r7brUZV4z"
+      },
+      "description": "Shows the number of members in the replica set",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 0,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 2,
+        "x": 9,
+        "y": 1
+      },
+      "hideTimeOverride": false,
+      "id": 59,
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {},
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "count by (rs_nm) (adot_mongodb_members_state{cl_name=~\"$cluster\"})",
+          "interval": "5m",
+          "intervalFactor": 1,
+          "legendFormat": "",
+          "metric": "",
+          "range": true,
+          "refId": "A",
+          "step": 300
+        }
+      ],
+      "title": "#ReplSet",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "r7brUZV4z"
+      },
+      "description": "Max Query Per Second (opcounters != commands)",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 1,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 2,
+        "x": 11,
+        "y": 1
+      },
+      "hideTimeOverride": false,
+      "id": 99,
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "max"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {},
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum(rate(adot_mongodb_opcountersRepl_delete{cl_name=~\"$cluster\"}[$interval]))+sum(rate(adot_mongodb_opcountersRepl_getmore{cl_name=~\"$cluster\"}[$interval]))+sum(rate(adot_mongodb_opcountersRepl_insert{cl_name=~\"$cluster\"}[$interval]))+sum(rate(adot_mongodb_opcountersRepl_query{cl_name=~\"$cluster\"}[$interval]))+sum(rate(adot_mongodb_opcountersRepl_update{cl_name=~\"$cluster\"}[$interval]))",
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "",
+          "metric": "",
+          "range": true,
+          "refId": "A",
+          "step": 300
+        }
+      ],
+      "title": "QPS",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "r7brUZV4z"
+      },
+      "description": "Any number of queued operations for long periods of time is an indication of possible issues. Find the cause and fix it before requests get stuck in the queue.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 0,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 5
+              },
+              {
+                "color": "red",
+                "value": 10
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 2,
+        "x": 13,
+        "y": 1
+      },
+      "hideTimeOverride": false,
+      "id": 106,
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "max"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {},
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum(adot_mongodb_globalLock_currentQueue_total{cl_name=~\"$cluster\"})",
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "",
+          "metric": "",
+          "range": true,
+          "refId": "A",
+          "step": 300
+        }
+      ],
+      "title": "Queue",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "r7brUZV4z"
+      },
+      "description": "Avg latency for read operations",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 0,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 20000
+              }
+            ]
+          },
+          "unit": "µs"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 3,
+        "x": 15,
+        "y": 1
+      },
+      "hideTimeOverride": false,
+      "id": 100,
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {},
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "avg(rate(adot_mongodb_opLatencies_reads_latency{cl_name=~\"$cluster\"}[$interval])/rate(adot_mongodb_opLatencies_reads_ops{cl_name=~\"$cluster\"}[$interval]))",
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "",
+          "metric": "",
+          "range": true,
+          "refId": "A",
+          "step": 300
+        }
+      ],
+      "title": "Op Latency R",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "r7brUZV4z"
+      },
+      "description": "Avg latency for writes operations",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 0,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 20000
+              }
+            ]
+          },
+          "unit": "µs"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 3,
+        "x": 18,
+        "y": 1
+      },
+      "hideTimeOverride": false,
+      "id": 104,
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {},
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "avg(rate(adot_mongodb_opLatencies_writes_latency{cl_name=~\"$cluster\"}[$interval])/rate(adot_mongodb_opLatencies_writes_ops{cl_name=~\"$cluster\"}[$interval]))",
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "",
+          "metric": "",
+          "range": true,
+          "refId": "A",
+          "step": 300
+        }
+      ],
+      "title": "Op Latency W",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "r7brUZV4z"
+      },
+      "description": "AVG Query Efficency",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 0.3
+              },
+              {
+                "color": "green",
+                "value": 0.6
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 3,
+        "x": 21,
+        "y": 1
+      },
+      "hideTimeOverride": false,
+      "id": 108,
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {},
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum(rate(adot_mongodb_metrics_document_returned{cl_name=~\"$cluster\"}[$interval]))/sum(rate(adot_mongodb_metrics_queryExecutor_scannedObjects{cl_name=~\"$cluster\"}[$interval]))",
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "",
+          "metric": "",
+          "range": true,
+          "refId": "A",
+          "step": 300
+        }
+      ],
+      "title": "Query Efficency",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "r7brUZV4z"
+      },
+      "description": "days since startup",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 0,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 3,
+        "x": 0,
+        "y": 3
+      },
+      "hideTimeOverride": false,
+      "id": 101,
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "max"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {},
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "max(adot_mongodb_uptime{cl_name=~\"$cluster\"})",
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "",
+          "metric": "",
+          "range": true,
+          "refId": "A",
+          "step": 300
+        }
+      ],
+      "title": "Uptime",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "r7brUZV4z"
+      },
+      "description": "Sum all vCPUs for given instances",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 0,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 3,
+        "x": 3,
+        "y": 3
+      },
+      "hideTimeOverride": false,
+      "id": 119,
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {},
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum(adot_hardware_platform_num_logical_cpus{cl_name=~\"$cluster\"})",
+          "interval": "5m",
+          "intervalFactor": 1,
+          "legendFormat": "",
+          "metric": "",
+          "range": true,
+          "refId": "A",
+          "step": 300
+        }
+      ],
+      "title": "#vCPUs",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "r7brUZV4z"
+      },
+      "description": "Sum all memory for given instances",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 0,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "deckbytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 3,
+        "x": 6,
+        "y": 3
+      },
+      "hideTimeOverride": false,
+      "id": 123,
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {},
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum(adot_hardware_system_memory_mem_total_kilobytes{cl_name=~\"$cluster\"})",
+          "interval": "5m",
+          "intervalFactor": 1,
+          "legendFormat": "",
+          "metric": "",
+          "range": true,
+          "refId": "A",
+          "step": 300
+        }
+      ],
+      "title": "Mem",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "r7brUZV4z"
+      },
+      "description": "Sum all disk storage for given instances",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 0,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 3,
+        "x": 9,
+        "y": 3
+      },
+      "hideTimeOverride": false,
+      "id": 126,
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {},
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "(sum(adot_hardware_disk_metrics_disk_space_used_bytes{cl_name=~\"$cluster\"})+sum(adot_hardware_disk_metrics_disk_space_free_bytes{cl_name=~\"$cluster\"}))",
+          "interval": "5m",
+          "intervalFactor": 1,
+          "legendFormat": "",
+          "metric": "",
+          "range": true,
+          "refId": "A",
+          "step": 300
+        }
+      ],
+      "title": "Storage",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "r7brUZV4z"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 0.7
+              },
+              {
+                "color": "red",
+                "value": 0.9
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 3,
+        "x": 12,
+        "y": 3
+      },
+      "hideTimeOverride": false,
+      "id": 121,
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {},
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "(1000*sum(adot_hardware_platform_num_logical_cpus{cl_name=~\"$cluster\"})-sum(rate(adot_hardware_system_cpu_idle_milliseconds_total{cl_name=~\"$cluster\"}[$interval])))/(1000*sum(adot_hardware_platform_num_logical_cpus{cl_name=~\"$cluster\"}))",
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "",
+          "metric": "",
+          "range": true,
+          "refId": "A",
+          "step": 300
+        }
+      ],
+      "title": "CPU Usage",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "r7brUZV4z"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 0.8
+              },
+              {
+                "color": "red",
+                "value": 0.95
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 3,
+        "x": 15,
+        "y": 3
+      },
+      "hideTimeOverride": false,
+      "id": 125,
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {},
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "(sum(adot_hardware_system_memory_mem_total_kilobytes{cl_name=~\"$cluster\"})-sum(adot_hardware_system_memory_mem_free_kilobytes{cl_name=~\"$cluster\"}))/sum(adot_hardware_system_memory_mem_total_kilobytes{cl_name=~\"$cluster\"})",
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "",
+          "metric": "",
+          "range": true,
+          "refId": "A",
+          "step": 300
+        }
+      ],
+      "title": "Mem Usage",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "r7brUZV4z"
+      },
+      "description": "Please provision more storage when more than 80% usage",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 0.7
+              },
+              {
+                "color": "red",
+                "value": 0.85
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 3,
+        "x": 18,
+        "y": 3
+      },
+      "hideTimeOverride": false,
+      "id": 116,
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {},
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum(adot_hardware_disk_metrics_disk_space_used_bytes{cl_name=~\"$cluster\"}) / (sum(adot_hardware_disk_metrics_disk_space_used_bytes{cl_name=~\"$cluster\"})+sum(adot_hardware_disk_metrics_disk_space_free_bytes{cl_name=~\"$cluster\"}))",
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "",
+          "metric": "",
+          "range": true,
+          "refId": "A",
+          "step": 300
+        }
+      ],
+      "title": "Storage Usage",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "r7brUZV4z"
+      },
+      "description": "Swap Usage should me small (<10%) to maximize performance with using RAM instead of Disk",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 2,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 0.7
+              },
+              {
+                "color": "red",
+                "value": 0.85
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 3,
+        "x": 21,
+        "y": 3
+      },
+      "hideTimeOverride": false,
+      "id": 120,
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {},
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "(sum(adot_hardware_system_memory_swap_total_kilobytes{cl_name=~\"$cluster\"})-sum(adot_hardware_system_memory_swap_free_kilobytes{cl_name=~\"$cluster\"}))/sum(adot_hardware_system_memory_swap_total_kilobytes{cl_name=~\"$cluster\"})",
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "",
+          "metric": "",
+          "range": true,
+          "refId": "A",
+          "step": 300
+        }
+      ],
+      "title": "Swap Usage",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "datasource": {
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 5
+      },
+      "id": 89,
+      "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "refId": "A"
+        }
+      ],
+      "title": "Replica Status",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "r7brUZV4z"
+      },
+      "description": "In MongoDB, a replica set is a group of MongoDB instances that maintain the same data set, providing redundancy and high availability. The status of a replica set can be determined by examining the state of its members. Here are the different states that a member of a replica set can be in:  \n    STARTUP: The member is starting up and has not yet joined the replica set.  \n    STARTUP2: The member is in the process of joining the replica set.  \n    PRIMARY: The member is the primary node and is currently accepting write operations.  \n    SECONDARY: The member is a secondary node and is replicating data from the primary.    \n    RECOVERING: The member is in the process of recovering data from the primary or another secondary.  \n    FATAL: The member has encountered a fatal error and is no longer part of the replica set.  \n    UNKNOWN: The member's state is unknown, which can happen if the member is not reachable.  \n    ARBITER: The member is an arbiter, which does not hold data but participates in elections to help achieve a majority.  \n    DOWN: The member is down or not reachable.  \n    ROLLBACK: The member is in the process of rolling back to a consistent state.  \n    REMOVED: The member has been removed from the replica set.  \n",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": false,
+            "inspect": false
+          },
+          "decimals": 0,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "State"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "0": {
+                        "color": "yellow",
+                        "index": 0,
+                        "text": "STARTUP"
+                      },
+                      "1": {
+                        "color": "green",
+                        "index": 1,
+                        "text": "PRIMARY"
+                      },
+                      "2": {
+                        "color": "green",
+                        "index": 2,
+                        "text": "SECONDARY"
+                      },
+                      "3": {
+                        "color": "orange",
+                        "index": 3,
+                        "text": "RECOVERING"
+                      },
+                      "5": {
+                        "color": "yellow",
+                        "index": 4,
+                        "text": "STARTUP2"
+                      },
+                      "6": {
+                        "color": "red",
+                        "index": 5,
+                        "text": "UNKNOWN"
+                      },
+                      "7": {
+                        "color": "yellow",
+                        "index": 6,
+                        "text": "ARBITER"
+                      },
+                      "8": {
+                        "color": "red",
+                        "index": 7,
+                        "text": "DOWN"
+                      },
+                      "9": {
+                        "color": "orange",
+                        "index": 8,
+                        "text": "ROLLBACK"
+                      },
+                      "10": {
+                        "color": "orange",
+                        "index": 9,
+                        "text": "REMOVED"
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 24,
+        "x": 0,
+        "y": 6
+      },
+      "hideTimeOverride": true,
+      "id": 128,
+      "maxDataPoints": 100,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": [
+            "Value"
+          ],
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "max by (alias_instance,alias_member,rs_state)(label_replace(label_replace(adot_mongodb_members_state{cl_name=~\"$cluster\",instance=~\".*($pod).*\"},\"alias_instance\",\"$1\",\"instance\",\".*(\\\\d\\\\d-\\\\d\\\\d).*\"),\"alias_member\",\"$1\",\"member_idx\",\"(.*\\\\d\\\\d-\\\\d\\\\d).*\"))",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "interval": "5m",
+          "intervalFactor": 1,
+          "legendFormat": "Shard {{alias_instance}} | Member {{alias_member}} | Replica Set {{rs_state}}",
+          "metric": "",
+          "range": false,
+          "refId": "C",
+          "step": 300
+        }
+      ],
+      "timeFrom": "1m",
+      "title": "ReplSet State",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true
+            },
+            "includeByName": {},
+            "indexByName": {},
+            "renameByName": {
+              "Value": "State",
+              "alias_instance": "Shard",
+              "alias_member": "Member",
+              "rs_state": "Replica Set"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "collapsed": true,
+      "datasource": {
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 17
+      },
+      "id": 87,
+      "panels": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "r7brUZV4z"
+          },
+          "description": "Shows how many times a command is executed per second on average during the selected interval.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 20,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 2,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "ops"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 12,
+            "x": 0,
+            "y": 18
+          },
+          "id": 63,
+          "options": {
+            "legend": {
+              "calcs": [
+                "mean"
+              ],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true,
+              "sortBy": "Mean",
+              "sortDesc": true
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "10.4.1",
+          "targets": [
+            {
+              "datasource": {
+                "uid": "${datasource}"
+              },
+              "editorMode": "code",
+              "expr": "max by (alias)(label_replace(rate(adot_mongodb_opcountersRepl_command{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]),\"alias\",\"$1\",\"instance\",\".*(\\\\d\\\\d-\\\\d\\\\d).*\"))",
+              "hide": false,
+              "interval": "$interval",
+              "intervalFactor": 1,
+              "legendFormat": "cmd {{alias}}",
+              "range": true,
+              "refId": "B",
+              "step": 300
+            },
+            {
+              "datasource": {
+                "uid": "${datasource}"
+              },
+              "editorMode": "code",
+              "expr": "max by (alias)(label_replace(rate(adot_mongodb_opcountersRepl_getmore{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]),\"alias\",\"$1\",\"instance\",\".*(\\\\d\\\\d-\\\\d\\\\d).*\"))",
+              "hide": false,
+              "interval": "$interval",
+              "intervalFactor": 1,
+              "legendFormat": "getmore {{alias}}",
+              "range": true,
+              "refId": "C",
+              "step": 300
+            },
+            {
+              "datasource": {
+                "uid": "${datasource}"
+              },
+              "editorMode": "code",
+              "expr": "max by (alias)(label_replace(rate(adot_mongodb_opcountersRepl_query{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]),\"alias\",\"$1\",\"instance\",\".*(\\\\d\\\\d-\\\\d\\\\d).*\"))",
+              "hide": false,
+              "interval": "$interval",
+              "intervalFactor": 1,
+              "legendFormat": "query {{alias}}",
+              "range": true,
+              "refId": "D",
+              "step": 300
+            },
+            {
+              "datasource": {
+                "uid": "${datasource}"
+              },
+              "editorMode": "code",
+              "expr": "max by (alias)(label_replace(rate(adot_mongodb_opcountersRepl_delete{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]),\"alias\",\"$1\",\"instance\",\".*(\\\\d\\\\d-\\\\d\\\\d).*\"))",
+              "hide": false,
+              "interval": "$interval",
+              "intervalFactor": 1,
+              "legendFormat": "delete {{alias}}",
+              "range": true,
+              "refId": "E",
+              "step": 300
+            },
+            {
+              "datasource": {
+                "uid": "${datasource}"
+              },
+              "editorMode": "code",
+              "expr": "max by (alias)(label_replace(rate(adot_mongodb_opcountersRepl_insert{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]),\"alias\",\"$1\",\"instance\",\".*(\\\\d\\\\d-\\\\d\\\\d).*\"))",
+              "hide": false,
+              "interval": "$interval",
+              "intervalFactor": 1,
+              "legendFormat": "insert {{alias}}",
+              "range": true,
+              "refId": "F",
+              "step": 300
+            },
+            {
+              "datasource": {
+                "uid": "${datasource}"
+              },
+              "editorMode": "code",
+              "expr": "max by (alias)(label_replace(rate(adot_mongodb_opcountersRepl_update{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]),\"alias\",\"$1\",\"instance\",\".*(\\\\d\\\\d-\\\\d\\\\d).*\"))",
+              "hide": false,
+              "interval": "$interval",
+              "intervalFactor": 1,
+              "legendFormat": "update {{alias}}",
+              "range": true,
+              "refId": "G",
+              "step": 300
+            }
+          ],
+          "title": "Commands",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "r7brUZV4z"
+          },
+          "description": "Average latency of operations (classified by read, write, or (other) command)",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 20,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 2,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "µs"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 12,
+            "x": 12,
+            "y": 18
+          },
+          "id": 103,
+          "options": {
+            "legend": {
+              "calcs": [
+                "mean"
+              ],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true,
+              "sortBy": "Max",
+              "sortDesc": true
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "10.4.1",
+          "targets": [
+            {
+              "datasource": {
+                "uid": "${datasource}"
+              },
+              "editorMode": "code",
+              "expr": "max by (alias)(label_replace(rate(adot_mongodb_opLatencies_commands_latency{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval])/rate(adot_mongodb_opLatencies_commands_ops{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]),\"alias\",\"$1\",\"instance\",\".*(\\\\d\\\\d-\\\\d\\\\d).*\"))",
+              "hide": false,
+              "interval": "$interval",
+              "intervalFactor": 1,
+              "legendFormat": "cmd {{alias}}",
+              "range": true,
+              "refId": "B",
+              "step": 300
+            },
+            {
+              "datasource": {
+                "uid": "${datasource}"
+              },
+              "editorMode": "code",
+              "expr": "max by (alias)(label_replace(rate(adot_mongodb_opLatencies_reads_latency{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval])/rate(adot_mongodb_opLatencies_reads_ops{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]),\"alias\",\"$1\",\"instance\",\".*(\\\\d\\\\d-\\\\d\\\\d).*\"))",
+              "hide": false,
+              "interval": "$interval",
+              "intervalFactor": 1,
+              "legendFormat": "reads {{alias}}",
+              "range": true,
+              "refId": "C",
+              "step": 300
+            },
+            {
+              "datasource": {
+                "uid": "${datasource}"
+              },
+              "editorMode": "code",
+              "expr": "max by (alias)(label_replace(rate(adot_mongodb_opLatencies_writes_latency{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval])/rate(adot_mongodb_opLatencies_writes_ops{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]),\"alias\",\"$1\",\"instance\",\".*(\\\\d\\\\d-\\\\d\\\\d).*\"))",
+              "hide": false,
+              "interval": "$interval",
+              "intervalFactor": 1,
+              "legendFormat": "writes {{alias}}",
+              "range": true,
+              "refId": "D",
+              "step": 300
+            },
+            {
+              "datasource": {
+                "uid": "${datasource}"
+              },
+              "editorMode": "code",
+              "expr": "max by (alias)(label_replace(rate(adot_mongodb_opLatencies_transactions_latency{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval])/rate(adot_mongodb_opLatencies_transactions_ops{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]),\"alias\",\"$1\",\"instance\",\".*(\\\\d\\\\d-\\\\d\\\\d).*\"))",
+              "hide": false,
+              "interval": "$interval",
+              "intervalFactor": 1,
+              "legendFormat": "transactions {{alias}}",
+              "range": true,
+              "refId": "E",
+              "step": 300
+            }
+          ],
+          "title": "Latency",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "r7brUZV4z"
+          },
+          "description": "Keep in mind the hard limit on the maximum number of connections set by your distribution.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "smooth",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": true,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "links": [],
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "short"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 25
+          },
+          "id": 95,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "8.3.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(adot_mongodb_connections_active{cl_name=~\"$cluster\",instance=~\".*($pod).*\"})",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Active",
+              "range": true,
+              "refId": "C"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(adot_mongodb_connections_available{cl_name=~\"$cluster\",instance=~\".*($pod).*\"})",
+              "hide": true,
+              "interval": "",
+              "legendFormat": "Available",
+              "range": true,
+              "refId": "A"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(adot_mongodb_connections_awaitingTopologyChanges{cl_name=~\"$cluster\",instance=~\".*($pod).*\"})",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Awaiting",
+              "range": true,
+              "refId": "B"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(adot_mongodb_connections_current{cl_name=~\"$cluster\",instance=~\".*($pod).*\"})",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Current",
+              "range": true,
+              "refId": "D"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(adot_mongodb_connections_exhaustHello{cl_name=~\"$cluster\",instance=~\".*($pod).*\"})",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "exhaustHello",
+              "range": true,
+              "refId": "E"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(adot_mongodb_connections_exhaustIsMaster{cl_name=~\"$cluster\",instance=~\".*($pod).*\"})",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "exhaustIsMaster",
+              "range": true,
+              "refId": "F"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(adot_mongodb_connections_limitExempt{cl_name=~\"$cluster\",instance=~\".*($pod).*\"})",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "limitExempt",
+              "range": true,
+              "refId": "G"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(adot_mongodb_connections_rejected{cl_name=~\"$cluster\",instance=~\".*($pod).*\"})",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "rejected",
+              "range": true,
+              "refId": "H"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(adot_mongodb_connections_threaded{cl_name=~\"$cluster\",instance=~\".*($pod).*\"})",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "threaded",
+              "range": true,
+              "refId": "I"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(adot_mongodb_connections_totalCreated{cl_name=~\"$cluster\",instance=~\".*($pod).*\"})",
+              "hide": true,
+              "interval": "",
+              "legendFormat": "totalCreated",
+              "range": true,
+              "refId": "J"
+            }
+          ],
+          "title": "Connections",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "r7brUZV4z"
+          },
+          "description": "Helps identify why connections are increasing. Shows active cursors compared to cursors being automatically killed after 10 minutes due to an application not closing the connection.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "smooth",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": true,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "links": [],
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "short"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 25
+          },
+          "id": 97,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "8.3.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(adot_mongodb_metrics_cursor_open_total{cl_name=~\"$cluster\",instance=~\".*($pod).*\"})",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Total",
+              "range": true,
+              "refId": "C"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(adot_mongodb_metrics_cursor_open_pinned{cl_name=~\"$cluster\",instance=~\".*($pod).*\"})",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Pinned",
+              "range": true,
+              "refId": "A"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(adot_mongodb_metrics_cursor_open_noTimeout{cl_name=~\"$cluster\",instance=~\".*($pod).*\"})",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "no Timeout",
+              "range": true,
+              "refId": "J"
+            }
+          ],
+          "title": "Cursors",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "r7brUZV4z"
+          },
+          "description": "When used in combination with 'Command Operations', this graph can help identify write amplification. For example, when one insert or update command actually inserts or updates hundreds, thousands, or even millions of documents.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "smooth",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": true,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "links": [],
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "ops"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 33
+          },
+          "id": 96,
+          "options": {
+            "legend": {
+              "calcs": [
+                "mean"
+              ],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "8.3.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(rate(adot_mongodb_metrics_document_inserted{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]))",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Inserted",
+              "range": true,
+              "refId": "C"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(rate(adot_mongodb_metrics_document_deleted{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]))",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Deleted",
+              "range": true,
+              "refId": "B"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(rate(adot_mongodb_metrics_document_returned{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]))",
+              "hide": true,
+              "interval": "",
+              "legendFormat": "Returned",
+              "range": true,
+              "refId": "J"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(rate(adot_mongodb_metrics_document_updated{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]))",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Updated",
+              "range": true,
+              "refId": "D"
+            }
+          ],
+          "title": "Document",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "r7brUZV4z"
+          },
+          "description": "Any number of queued operations for long periods of time is an indication of possible issues. Find the cause and fix it before requests get stuck in the queue.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "smooth",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": true,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "links": [],
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "short"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 33
+          },
+          "id": 105,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "8.3.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(adot_mongodb_globalLock_currentQueue_readers{cl_name=~\"$cluster\",instance=~\".*($pod).*\"})",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Readers",
+              "range": true,
+              "refId": "C"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(adot_mongodb_globalLock_currentQueue_writers{cl_name=~\"$cluster\",instance=~\".*($pod).*\"})",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Writers",
+              "range": true,
+              "refId": "A"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(adot_mongodb_globalLock_currentQueue_total{cl_name=~\"$cluster\",instance=~\".*($pod).*\"})",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Total",
+              "range": true,
+              "refId": "B"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(adot_mongodb_connections_totalCreated{cl_name=~\"$cluster\",instance=~\".*($pod).*\"})",
+              "hide": true,
+              "interval": "",
+              "legendFormat": "totalCreated",
+              "range": true,
+              "refId": "J"
+            }
+          ],
+          "title": "Queued",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "r7brUZV4z"
+          },
+          "description": "Page faults indicate that requests are processed from disk either because an index is missing or there is not enough memory for the data set. Consider increasing memory or sharding out.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "smooth",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": true,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "links": [],
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "percentunit"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 41
+          },
+          "id": 107,
+          "options": {
+            "legend": {
+              "calcs": [
+                "mean"
+              ],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "8.3.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(rate(adot_mongodb_metrics_document_returned{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]))/sum(rate(adot_mongodb_metrics_queryExecutor_scannedObjects{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]))",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Efficiency",
+              "range": true,
+              "refId": "C"
+            }
+          ],
+          "title": "Query Efficiency",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "r7brUZV4z"
+          },
+          "description": "The average rate per second over the selected sample period of documents scanned during queries and query-plan evaluation. This rate is driven by the same value as totalDocsExamined in the output of explain().",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "smooth",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": true,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "links": [],
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "ops"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 41
+          },
+          "id": 130,
+          "options": {
+            "legend": {
+              "calcs": [
+                "mean"
+              ],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "8.3.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(rate(adot_mongodb_metrics_queryExecutor_scannedObjects{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]))",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Scanned",
+              "range": true,
+              "refId": "C"
+            }
+          ],
+          "title": "Scanned Objects",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "r7brUZV4z"
+          },
+          "description": "This is useful for write-heavy workloads to understand how long it takes to verify writes and how many concurrent writes are occurring.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "smooth",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": true,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "links": [],
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "ms"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 49
+          },
+          "id": 131,
+          "options": {
+            "legend": {
+              "calcs": [
+                "mean"
+              ],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "8.3.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(rate(adot_mongodb_metrics_getLastError_wtime_totalMillis{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]))",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Last Error",
+              "range": true,
+              "refId": "C"
+            }
+          ],
+          "title": "getLastError Write Time",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "r7brUZV4z"
+          },
+          "description": "This is useful for write-heavy workloads to understand how long it takes to verify writes and how many concurrent writes are occurring.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "smooth",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": true,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "links": [],
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "ops"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 49
+          },
+          "id": 132,
+          "options": {
+            "legend": {
+              "calcs": [
+                "mean"
+              ],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "8.3.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(rate(adot_mongodb_metrics_getLastError_wtimeouts{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]))",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Timeouts",
+              "range": true,
+              "refId": "C"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(rate(adot_mongodb_metrics_getLastError_wtime_num{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]))",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Total",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "getLastError Write Operations",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "r7brUZV4z"
+          },
+          "description": "Asserts are not important by themselves, but you can correlate spikes with other graphs.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "smooth",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": true,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "links": [],
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "short"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 57
+          },
+          "id": 98,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "8.3.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(rate(adot_mongodb_asserts_msg{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]))",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Messages",
+              "range": true,
+              "refId": "C"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(rate(adot_mongodb_asserts_warning{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]))",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "User",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Assert Events",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "r7brUZV4z"
+          },
+          "description": "Page faults indicate that requests are processed from disk either because an index is missing or there is not enough memory for the data set. Consider increasing memory or sharding out.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "smooth",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": true,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "links": [],
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "short"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 57
+          },
+          "id": 133,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "8.3.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(rate(adot_mongodb_extra_info_page_faults{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]))",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Faults",
+              "range": true,
+              "refId": "C"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(rate(adot_mongodb_extra_info_page_reclaims{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]))",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Reclaimed",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Page Faults",
+          "type": "timeseries"
+        }
+      ],
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "refId": "A"
+        }
+      ],
+      "title": "Operations",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 18
+      },
+      "id": 94,
+      "panels": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "r7brUZV4z"
+          },
+          "description": "CPU usage on the server,CPU User = CPU used by the application (user+nice), CPU System = CPU used by the kernel, CPU IOWait= CPU waiting for the IOs, CPU Other = CPU used by the IRQ, Steal, Guest",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 40,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "smooth",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": true,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "links": [],
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "percentunit"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 66
+          },
+          "id": 118,
+          "options": {
+            "legend": {
+              "calcs": [
+                "max",
+                "mean"
+              ],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true,
+              "sortBy": "Mean",
+              "sortDesc": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "8.3.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "(1000*sum(adot_hardware_platform_num_logical_cpus{cl_name=~\"$cluster\",instance=~\".*($pod).*\"})-sum(rate(adot_hardware_system_cpu_idle_milliseconds_total{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval])))/(1000*sum(adot_hardware_platform_num_logical_cpus{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}))>0",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Total",
+              "range": true,
+              "refId": "A"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(rate(adot_hardware_system_cpu_user_milliseconds_total{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]))/(1000*sum(adot_hardware_platform_num_logical_cpus{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}))",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "User",
+              "range": true,
+              "refId": "B"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(rate(adot_hardware_system_cpu_kernel_milliseconds_total{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]))/(1000*sum(adot_hardware_platform_num_logical_cpus{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}))",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "System",
+              "range": true,
+              "refId": "C"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(rate(adot_hardware_system_cpu_io_wait_milliseconds_total{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]))/(1000*sum(adot_hardware_platform_num_logical_cpus{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}))",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "IOwait",
+              "range": true,
+              "refId": "D"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(rate(adot_hardware_system_cpu_nice_milliseconds_total{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]))/(1000*sum(adot_hardware_platform_num_logical_cpus{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}))",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Nice",
+              "range": true,
+              "refId": "E"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "(sum(rate(adot_hardware_system_cpu_guest_milliseconds_total{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]))+sum(rate(adot_hardware_system_cpu_irq_milliseconds_total{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]))+sum(rate(adot_hardware_system_cpu_soft_irq_milliseconds_total{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]))+sum(rate(adot_hardware_system_cpu_steal_milliseconds_total{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval])))\n/(1000*sum(adot_hardware_platform_num_logical_cpus{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}))",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Other",
+              "range": true,
+              "refId": "F"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(rate(adot_hardware_system_cpu_idle_milliseconds_total{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]))/(1000*sum(adot_hardware_platform_num_logical_cpus{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}))",
+              "hide": true,
+              "interval": "",
+              "legendFormat": "idle",
+              "range": true,
+              "refId": "G"
+            }
+          ],
+          "title": "CPU Usage",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "r7brUZV4z"
+          },
+          "description": "The number of kilobytes of physical memory in use\n",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "smooth",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": true,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "decimals": 0,
+              "links": [],
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "deckbytes"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 66
+          },
+          "id": 124,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "8.3.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(adot_hardware_system_memory_mem_total_kilobytes{cl_name=~\"$cluster\",instance=~\".*($pod).*\"})",
+              "interval": "",
+              "legendFormat": "Total",
+              "range": true,
+              "refId": "A"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(adot_hardware_system_memory_mem_total_kilobytes{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}) -sum(adot_hardware_system_memory_mem_free_kilobytes{cl_name=~\"$cluster\",instance=~\".*($pod).*\"})",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Usage",
+              "range": true,
+              "refId": "B"
+            }
+          ],
+          "title": "Mem Usage",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "r7brUZV4z"
+          },
+          "description": "The percentage of time the CPU spent servicing this MongoDB process, scaled to a range of 0-100% by dividing by the number of CPU cores.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 40,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "smooth",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": true,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "links": [],
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "percentunit"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 74
+          },
+          "id": 127,
+          "options": {
+            "legend": {
+              "calcs": [
+                "max",
+                "mean"
+              ],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true,
+              "sortBy": "Mean",
+              "sortDesc": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "8.3.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(rate(adot_hardware_process_cpu_user_milliseconds_total{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]))/(1000*sum(adot_hardware_platform_num_logical_cpus{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}))",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "User",
+              "range": true,
+              "refId": "B"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(rate(adot_hardware_process_cpu_kernel_milliseconds_total{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]))/(1000*sum(adot_hardware_platform_num_logical_cpus{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}))",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Kernel",
+              "range": true,
+              "refId": "C"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(rate(adot_hardware_process_cpu_children_user_milliseconds_total{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]))/(1000*sum(adot_hardware_platform_num_logical_cpus{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}))",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Children User",
+              "range": true,
+              "refId": "D"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(rate(adot_hardware_process_cpu_children_kernel_milliseconds_total{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]))/(1000*sum(adot_hardware_platform_num_logical_cpus{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}))",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Kernel User",
+              "range": true,
+              "refId": "E"
+            }
+          ],
+          "title": "CPU Process Usage",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "r7brUZV4z"
+          },
+          "description": "The total amount of swap space in free and used, measured in kilobytes\n",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "smooth",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": true,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "decimals": 0,
+              "links": [],
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "deckbytes"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 74
+          },
+          "id": 122,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "8.3.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(adot_hardware_system_memory_swap_total_kilobytes{cl_name=~\"$cluster\",instance=~\".*($pod).*\"})",
+              "interval": "",
+              "legendFormat": "Total",
+              "range": true,
+              "refId": "A"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(adot_hardware_system_memory_swap_total_kilobytes{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}) -sum(adot_hardware_system_memory_swap_free_kilobytes{cl_name=~\"$cluster\",instance=~\".*($pod).*\"})",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Usage",
+              "range": true,
+              "refId": "B"
+            }
+          ],
+          "title": "Swap Usage",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "r7brUZV4z"
+          },
+          "description": "Network Throughput Logical (uncompressed)",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "smooth",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": true,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "links": [],
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "binbps"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 82
+          },
+          "id": 93,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "8.3.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(rate(adot_mongodb_network_bytesIn{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]))",
+              "interval": "",
+              "legendFormat": "In",
+              "range": true,
+              "refId": "A"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(rate(adot_mongodb_network_bytesOut{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]))",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Out",
+              "range": true,
+              "refId": "B"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(rate(adot_mongodb_network_compression_snappy_compressor_bytesIn{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]))",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Snappy Comp In",
+              "range": true,
+              "refId": "C"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(rate(adot_mongodb_network_compression_snappy_compressor_bytesOut{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]))",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Snappy Comp Out",
+              "range": true,
+              "refId": "D"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(rate(adot_mongodb_network_compression_zlib_compressor_bytesIn{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]))",
+              "hide": true,
+              "interval": "",
+              "legendFormat": "Zlib In",
+              "range": true,
+              "refId": "E"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(rate(adot_mongodb_network_compression_zlib_compressor_bytesOut{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]))",
+              "hide": true,
+              "interval": "",
+              "legendFormat": "Zlib Out",
+              "range": true,
+              "refId": "F"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(rate(adot_mongodb_network_compression_zstd_compressor_bytesIn{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]))",
+              "hide": true,
+              "interval": "",
+              "legendFormat": "Zstd In",
+              "range": true,
+              "refId": "G"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(rate(adot_mongodb_network_compression_zstd_compressor_bytesOut{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]))",
+              "hide": true,
+              "interval": "",
+              "legendFormat": "Zstd Out",
+              "range": true,
+              "refId": "H"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(rate(adot_mongodb_network_compression_snappy_decompressor_bytesIn{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]))",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Snappy Decomp In",
+              "range": true,
+              "refId": "I"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(rate(adot_mongodb_network_compression_snappy_decompressor_bytesOut{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]))",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Snappy Decomp Out",
+              "range": true,
+              "refId": "J"
+            }
+          ],
+          "title": "Network",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "r7brUZV4z"
+          },
+          "description": "Network Throughput Physical (compressed)",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "smooth",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": true,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "links": [],
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "binbps"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 82
+          },
+          "id": 111,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "8.3.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(rate(adot_mongodb_network_physicalBytesIn{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]))",
+              "interval": "",
+              "legendFormat": "In",
+              "range": true,
+              "refId": "A"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(rate(adot_mongodb_network_physicalBytesOut{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]))",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Out",
+              "range": true,
+              "refId": "B"
+            }
+          ],
+          "title": "Network Physical",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "r7brUZV4z"
+          },
+          "description": "Disk used and free (stacked view)",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "smooth",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": true,
+                "stacking": {
+                  "group": "A",
+                  "mode": "normal"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "links": [],
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "bytes"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 90
+          },
+          "id": 113,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "8.3.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(adot_hardware_disk_metrics_disk_space_used_bytes{cl_name=~\"$cluster\",instance=~\".*($pod).*\"})",
+              "interval": "",
+              "legendFormat": "Used",
+              "range": true,
+              "refId": "A"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(adot_hardware_disk_metrics_disk_space_free_bytes{cl_name=~\"$cluster\",instance=~\".*($pod).*\"})",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Free",
+              "range": true,
+              "refId": "B"
+            }
+          ],
+          "title": "Storage Usage",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "r7brUZV4z"
+          },
+          "description": "Disk Latency",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "smooth",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": true,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "links": [],
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "ms"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 90
+          },
+          "id": 114,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "8.3.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(rate(adot_hardware_disk_metrics_read_time_milliseconds_total{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval])/rate(adot_hardware_disk_metrics_read_count_total{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]))",
+              "interval": "",
+              "legendFormat": "Read",
+              "range": true,
+              "refId": "A"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(rate(adot_hardware_disk_metrics_write_time_milliseconds_total{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval])/rate(adot_hardware_disk_metrics_write_count_total{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]))",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Write",
+              "range": true,
+              "refId": "B"
+            }
+          ],
+          "title": "Storage Latency",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "r7brUZV4z"
+          },
+          "description": "Disk Latency",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "smooth",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": true,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "links": [],
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "iops"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 98
+          },
+          "id": 115,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "8.3.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(rate(adot_hardware_disk_metrics_read_count_total{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]))",
+              "interval": "",
+              "legendFormat": "Read",
+              "range": true,
+              "refId": "A"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(rate(adot_hardware_disk_metrics_write_count_total{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]))",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Write",
+              "range": true,
+              "refId": "B"
+            }
+          ],
+          "title": "Storage IOPS",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "r7brUZV4z"
+          },
+          "description": "The average length of queue of requests issued to the disk partition used by MongoDB.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "smooth",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": true,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "decimals": 0,
+              "links": [],
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "short"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 98
+          },
+          "id": 117,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "8.3.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "r7brUZV4z"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(rate(adot_hardware_disk_metrics_weighted_time_io_milliseconds_total{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]))",
+              "interval": "",
+              "legendFormat": "Read",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Disk Queue Depth",
+          "type": "timeseries"
+        }
+      ],
+      "title": "Resources",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "datasource": {
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 19
+      },
+      "id": 91,
+      "panels": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "r7brUZV4z"
+          },
+          "description": "n the context of MongoDB, an OpLog (short for Operation Log) is a special capped collection that stores an ordered history of logical write operations (insert, update, delete) that modify the data stored in the database. The OpLog is a crucial component of MongoDB's replication system, enabling the synchronization of data across replica set members.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 20,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 2,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "ms"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 12,
+            "x": 0,
+            "y": 107
+          },
+          "id": 79,
+          "options": {
+            "legend": {
+              "calcs": [
+                "mean",
+                "max",
+                "min"
+              ],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "10.4.1",
+          "targets": [
+            {
+              "datasource": {
+                "uid": "${datasource}"
+              },
+              "editorMode": "code",
+              "expr": "max by (alias)(label_replace(rate(adot_mongodb_metrics_repl_network_getmores_totalMillis{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]),\"alias\",\"$1\",\"instance\",\".*(\\\\d\\\\d-\\\\d\\\\d).*\"))",
+              "interval": "$interval",
+              "intervalFactor": 1,
+              "legendFormat": "{{pod}}",
+              "range": true,
+              "refId": "A",
+              "step": 300
+            }
+          ],
+          "title": "Oplog Getmore Time",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "r7brUZV4z"
+          },
+          "description": "n the context of MongoDB, an OpLog (short for Operation Log) is a special capped collection that stores an ordered history of logical write operations (insert, update, delete) that modify the data stored in the database. The OpLog is a crucial component of MongoDB's replication system, enabling the synchronization of data across replica set members.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 20,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 2,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "log": 10,
+                  "type": "log"
+                },
+                "showPoints": "never",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "bytes"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 12,
+            "x": 12,
+            "y": 107
+          },
+          "id": 80,
+          "options": {
+            "legend": {
+              "calcs": [
+                "mean",
+                "max",
+                "min"
+              ],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "10.4.1",
+          "targets": [
+            {
+              "datasource": {
+                "uid": "${datasource}"
+              },
+              "editorMode": "code",
+              "expr": "max by (alias)(label_replace(adot_mongodb_metrics_repl_buffer_sizeBytes{cl_name=~\"$cluster\",instance=~\".*($pod).*\"},\"alias\",\"$1\",\"instance\",\".*(\\\\d\\\\d-\\\\d\\\\d).*\"))",
+              "interval": "$interval",
+              "intervalFactor": 1,
+              "legendFormat": "Used {{alias}}",
+              "range": true,
+              "refId": "A",
+              "step": 300
+            },
+            {
+              "datasource": {
+                "uid": "${datasource}"
+              },
+              "editorMode": "code",
+              "expr": "max by (alias)(label_replace(adot_mongodb_metrics_repl_buffer_maxSizeBytes{cl_name=~\"$cluster\",instance=~\".*($pod).*\"},\"alias\",\"$1\",\"instance\",\".*(\\\\d\\\\d-\\\\d\\\\d).*\"))",
+              "interval": "$interval",
+              "intervalFactor": 1,
+              "legendFormat": "Max {{alias}}",
+              "range": true,
+              "refId": "B",
+              "step": 300
+            }
+          ],
+          "title": "Oplog Buffer Capacity",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "r7brUZV4z"
+          },
+          "description": "n the context of MongoDB, an OpLog (short for Operation Log) is a special capped collection that stores an ordered history of logical write operations (insert, update, delete) that modify the data stored in the database. The OpLog is a crucial component of MongoDB's replication system, enabling the synchronization of data across replica set members.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 20,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 2,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "ops"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 12,
+            "x": 0,
+            "y": 114
+          },
+          "id": 81,
+          "options": {
+            "legend": {
+              "calcs": [
+                "mean",
+                "max",
+                "min"
+              ],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "10.4.1",
+          "targets": [
+            {
+              "datasource": {
+                "uid": "${datasource}"
+              },
+              "editorMode": "code",
+              "expr": "max by (alias)(label_replace(rate(adot_mongodb_metrics_repl_apply_ops{cl_name=~\"$cluster\",instance=~\".*($pod).*\"}[$interval]),\"alias\",\"$1\",\"instance\",\".*(\\\\d\\\\d-\\\\d\\\\d).*\"))",
+              "intervalFactor": 2,
+              "legendFormat": "{{alias}}",
+              "range": true,
+              "refId": "C",
+              "step": 120
+            }
+          ],
+          "title": "Oplog Operations",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "r7brUZV4z"
+          },
+          "description": "n the context of MongoDB, an OpLog (short for Operation Log) is a special capped collection that stores an ordered history of logical write operations (insert, update, delete) that modify the data stored in the database. The OpLog is a crucial component of MongoDB's replication system, enabling the synchronization of data across replica set members.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 20,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 2,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "ops"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 12,
+            "x": 12,
+            "y": 114
+          },
+          "id": 85,
+          "options": {
+            "legend": {
+              "calcs": [
+                "mean",
+                "max",
+                "min"
+              ],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "10.4.1",
+          "targets": [
+            {
+              "datasource": {
+                "uid": "${datasource}"
+              },
+              "editorMode": "code",
+              "expr": "max by (alias)(label_replace(adot_mongodb_metrics_repl_buffer_count{cl_name=~\"$cluster\",instance=~\".*($pod).*\"},\"alias\",\"$1\",\"instance\",\".*(\\\\d\\\\d-\\\\d\\\\d).*\"))",
+              "interval": "$interval",
+              "intervalFactor": 1,
+              "legendFormat": "{{alias}}",
+              "range": true,
+              "refId": "A",
+              "step": 300
+            }
+          ],
+          "title": "Oplog Buffered Operations",
+          "type": "timeseries"
+        }
+      ],
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "refId": "A"
+        }
+      ],
+      "title": "Oplog Info",
+      "type": "row"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 39,
+  "tags": [
+    "AWS",
+    "infra"
+  ],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "test",
+          "value": "test"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "r7brUZV4z"
+        },
+        "definition": "label_values(adot_mongodb_up,cl_name)",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Cluster",
+        "multi": false,
+        "name": "cluster",
+        "options": [],
+        "query": {
+          "qryType": 1,
+          "query": "label_values(adot_mongodb_up,cl_name)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": "",
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "r7brUZV4z"
+        },
+        "definition": "label_values(adot_mongodb_up{cl_name=\"$cluster\"},instance)",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Shard",
+        "multi": true,
+        "name": "pod",
+        "options": [],
+        "query": {
+          "qryType": 1,
+          "query": "label_values(adot_mongodb_up{cl_name=\"$cluster\"},instance)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": ".*(\\d\\d-\\d\\d).*",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      },
+      {
+        "allValue": "",
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "r7brUZV4z"
+        },
+        "definition": "label_values(adot_mongodb_up{cl_name=\"$cluster\"},rs_nm)",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Replica Set",
+        "multi": true,
+        "name": "app",
+        "options": [],
+        "query": {
+          "qryType": 1,
+          "query": "label_values(adot_mongodb_up{cl_name=\"$cluster\"},rs_nm)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      },
+      {
+        "allFormat": "glob",
+        "auto": true,
+        "auto_count": 200,
+        "auto_min": "1s",
+        "current": {
+          "selected": false,
+          "text": "5m",
+          "value": "5m"
+        },
+        "datasource": "${datasource}",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Interval",
+        "multi": false,
+        "multiFormat": "glob",
+        "name": "interval",
+        "options": [
+          {
+            "selected": false,
+            "text": "auto",
+            "value": "$__auto_interval_interval"
+          },
+          {
+            "selected": false,
+            "text": "1s",
+            "value": "1s"
+          },
+          {
+            "selected": false,
+            "text": "5s",
+            "value": "5s"
+          },
+          {
+            "selected": false,
+            "text": "1m",
+            "value": "1m"
+          },
+          {
+            "selected": true,
+            "text": "5m",
+            "value": "5m"
+          },
+          {
+            "selected": false,
+            "text": "1h",
+            "value": "1h"
+          },
+          {
+            "selected": false,
+            "text": "6h",
+            "value": "6h"
+          },
+          {
+            "selected": false,
+            "text": "1d",
+            "value": "1d"
+          }
+        ],
+        "query": "1s,5s,1m,5m,1h,6h,1d",
+        "queryValue": "",
+        "refresh": 2,
+        "skipUrlSync": false,
+        "type": "interval"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {
+    "hidden": false,
+    "now": true,
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
+  },
+  "timezone": "browser",
+  "title": "AWS Mongo DB Atlas",
+  "uid": "be5bjbmkdhxc0a",
+  "version": 79,
+  "weekStart": ""
+}
