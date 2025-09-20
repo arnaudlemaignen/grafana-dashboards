@@ -36,6 +36,7 @@ This dashboard needs the [logstash exporter](https://github.com/leroy-merlin-br/
 [![Pods](prometheus-ds/pods/pods.png)](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/prometheus-ds/pods)
 
 ### [Pods Java](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/prometheus-ds/pods-java)
+This dashboard needs the JMX agent to be acivated in all Java containers.
 [![Pods Java](prometheus-ds/pods-java/pods-java.png)](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/prometheus-ds/pods-java)
 
 ### [Pods TOP](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/prometheus-ds/pods-top)
