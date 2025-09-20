@@ -1,0 +1,1224 @@
+{
+  "__inputs": [
+    {
+      "name": "DS_DS_PROMETHEUS",
+      "label": "ds_prometheus",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "12.0.3"
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    }
+  ],
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "Check nodes with the TOP resource usage",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "panels": [
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_DS_PROMETHEUS}"
+      },
+      "description": "Server CPU usage ,please consider adding vCPU or nodes if > 75%",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 0,
+          "links": [],
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 13,
+      "options": {
+        "legend": {
+          "calcs": [
+            "max",
+            "mean"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "sortBy": "Max",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "pluginVersion": "12.0.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_DS_PROMETHEUS}"
+          },
+          "expr": "max((((count by (instance) (count by (cpu,instance)(node_cpu_seconds_total{instance=~\"$slow_cpu\"}))) - avg by (instance)(sum by (mode,instance)(irate(node_cpu_seconds_total{mode='idle',instance=~\"$slow_cpu\"}[$interval]))))*100) / count by (instance)(count by (cpu,instance)(node_cpu_seconds_total{instance=~\"$slow_cpu\"}))) by (instance)",
+          "format": "time_series",
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "{{instance}}",
+          "refId": "A",
+          "step": 10
+        }
+      ],
+      "title": "TOP $TOP used CPU",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_DS_PROMETHEUS}"
+      },
+      "description": "Load weighted (Load 1 min / number of cores)if >1 it means that the system tries to process more load than the system can handle.More cores needs to be added or better IOs / Network bandwidth.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 0,
+          "links": [],
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "id": 6,
+      "options": {
+        "legend": {
+          "calcs": [
+            "max",
+            "mean"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "sortBy": "Max",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "pluginVersion": "12.0.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_DS_PROMETHEUS}"
+          },
+          "expr": "topk($TOP,avg by (instance)(node_load1{instance=~\"$slow_Load\"})/ count by (instance) (count by (cpu,instance) (node_cpu_seconds_total) ))",
+          "format": "time_series",
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "{{instance}}",
+          "refId": "A",
+          "step": 10
+        }
+      ],
+      "title": "TOP $TOP Weighted Load 1m",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_DS_PROMETHEUS}"
+      },
+      "description": "Server Mem usage,please consider adding RAM, vRAM or nodes if > 70% to avoid swapping and performance degradation",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 0,
+          "links": [],
+          "mappings": [],
+          "max": 1,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 7
+      },
+      "id": 4,
+      "options": {
+        "legend": {
+          "calcs": [
+            "max",
+            "mean"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "sortBy": "Max",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "pluginVersion": "12.0.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_DS_PROMETHEUS}"
+          },
+          "expr": "topk($TOP, 1-(node_memory_MemAvailable_bytes{instance=~\"$slow_Mem\"} / node_memory_MemTotal_bytes{instance=~\"$slow_Mem\"}))",
+          "format": "time_series",
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "{{instance}}",
+          "refId": "A",
+          "step": 10
+        }
+      ],
+      "title": "TOP $TOP used Mem",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_DS_PROMETHEUS}"
+      },
+      "description": "Network throughput",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "Bps"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/.*outbound/"
+            },
+            "properties": [
+              {
+                "id": "custom.transform",
+                "value": "negative-Y"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 12,
+        "y": 7
+      },
+      "id": 12,
+      "options": {
+        "legend": {
+          "calcs": [
+            "max",
+            "mean"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "sortBy": "Max",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.0.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "expr": "topk($TOP,max by(instance)(irate(node_network_transmit_bytes_total{instance=~\"$server\", device!~\"lo|bond[0-9]|cbr[0-9]|veth.*\"}[$interval])))",
+          "format": "time_series",
+          "hide": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "OUT | {{instance}}",
+          "range": true,
+          "refId": "A",
+          "step": 30
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "expr": "topk($TOP,max by(instance)(irate(node_network_receive_bytes_total{instance=~\"$server\", device!~\"lo|bond[0-9]|cbr[0-9]|veth.*\"}[$interval])))",
+          "format": "time_series",
+          "intervalFactor": 2,
+          "legendFormat": "IN | {{instance}}",
+          "range": true,
+          "refId": "B",
+          "step": 30
+        }
+      ],
+      "title": "Network Usage",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_DS_PROMETHEUS}"
+      },
+      "description": "IOPS R+W",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 14
+      },
+      "id": 9,
+      "options": {
+        "legend": {
+          "calcs": [
+            "max",
+            "mean"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "sortBy": "Max",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.0.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_DS_PROMETHEUS}"
+          },
+          "expr": "topk($TOP, sum by (instance) (irate(node_disk_reads_completed_total{instance=~\"$slow_iops\"}[$interval])) + sum by (instance) (irate(node_disk_writes_completed_total{instance=~\"$slow_iops\"}[$interval])))",
+          "format": "time_series",
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "{{instance}}",
+          "refId": "A",
+          "step": 10
+        }
+      ],
+      "title": "TOP $TOP IOPS",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_DS_PROMETHEUS}"
+      },
+      "description": "Server partition usage,please consider adding storage if > 70% to avoid fragmentation for performance degradation and avoiding disk full",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 12,
+        "y": 14
+      },
+      "id": 1,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "pluginVersion": "12.0.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_DS_PROMETHEUS}"
+          },
+          "expr": "topk($TOP, 1 - (node_filesystem_avail_bytes{job=\"kubernetes-node-exporter\",instance=~\"$slow_Partition\",fstype=~\"xfs\",device!~\"/dev/rbd.*|/dev/mapper.*\",mountpoint!~\".*/(nfs|ebs|rbd)/.*\"} / node_filesystem_size_bytes{job=\"kubernetes-node-exporter\",instance=~\"$slow_Partition\",fstype=~\"xfs\",device!~\"/dev/rbd.*|/dev/mapper.*\",mountpoint!~\".*/(nfs|ebs|rbd)/.*\"}))",
+          "format": "time_series",
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "{{instance}} | {{mountpoint}} ",
+          "refId": "B",
+          "step": 4
+        }
+      ],
+      "title": "TOP $TOP used Filesystems",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_DS_PROMETHEUS}"
+      },
+      "description": "Read Latency in ms of the different devices of the server, ideally < 5 ms, performance degrades if > 20 ms",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 21
+      },
+      "id": 8,
+      "options": {
+        "legend": {
+          "calcs": [
+            "max",
+            "mean"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "sortBy": "Max",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.0.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_DS_PROMETHEUS}"
+          },
+          "expr": "topk($TOP, max by (instance) (rate(node_disk_read_time_seconds_total{instance=~\"$slow_latencyR\"}[$interval])/rate(node_disk_reads_completed_total{instance=~\"$slow_latencyR\"}[$interval])))",
+          "format": "time_series",
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "{{instance}}",
+          "refId": "A",
+          "step": 10
+        }
+      ],
+      "title": "TOP $TOP IO latency Max R",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_DS_PROMETHEUS}"
+      },
+      "description": "Write Latency in ms of the different devices of the server, ideally < 5 ms, performance degrades if > 20 ms",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 0,
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 12,
+        "y": 21
+      },
+      "id": 11,
+      "options": {
+        "legend": {
+          "calcs": [
+            "max",
+            "mean"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "sortBy": "Max",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.0.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_DS_PROMETHEUS}"
+          },
+          "expr": "topk($TOP, max by (instance) (rate(node_disk_write_time_seconds_total{instance=~\"$slow_latencyW\"}[$interval])/rate(node_disk_writes_completed_total{instance=~\"$slow_latencyW\"}[$interval])))",
+          "format": "time_series",
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "{{instance}}",
+          "refId": "A",
+          "step": 10
+        }
+      ],
+      "title": "TOP $TOP IO latency Max W",
+      "type": "timeseries"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 41,
+  "tags": [
+    "Nodes"
+  ],
+  "templating": {
+    "list": [
+      {
+        "current": {},
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_DS_PROMETHEUS}"
+        },
+        "definition": "label_values(node_boot_time_seconds, partition)",
+        "hide": 2,
+        "includeAll": true,
+        "name": "partition",
+        "options": [],
+        "query": {
+          "query": "label_values(node_boot_time_seconds, partition)",
+          "refId": "ds_prometheus-partition-Variable-Query"
+        },
+        "refresh": 2,
+        "regex": "",
+        "type": "query"
+      },
+      {
+        "current": {},
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_DS_PROMETHEUS}"
+        },
+        "definition": "label_values(node_boot_time_seconds{partition=~\"$partition\"}, instance)",
+        "hide": 2,
+        "includeAll": true,
+        "name": "server",
+        "options": [],
+        "query": {
+          "query": "label_values(node_boot_time_seconds{partition=~\"$partition\"}, instance)",
+          "refId": "ds_prometheus-server-Variable-Query"
+        },
+        "refresh": 2,
+        "regex": "",
+        "type": "query"
+      },
+      {
+        "current": {
+          "text": "3",
+          "value": "3"
+        },
+        "includeAll": false,
+        "label": "TOP",
+        "name": "TOP",
+        "options": [
+          {
+            "selected": true,
+            "text": "3",
+            "value": "3"
+          },
+          {
+            "selected": false,
+            "text": "5",
+            "value": "5"
+          },
+          {
+            "selected": false,
+            "text": "10",
+            "value": "10"
+          },
+          {
+            "selected": false,
+            "text": "20",
+            "value": "20"
+          },
+          {
+            "selected": false,
+            "text": "50",
+            "value": "50"
+          }
+        ],
+        "query": "3,5,10,20,50",
+        "type": "custom"
+      },
+      {
+        "current": {},
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_DS_PROMETHEUS}"
+        },
+        "definition": "",
+        "hide": 2,
+        "includeAll": true,
+        "multi": true,
+        "name": "device",
+        "options": [],
+        "query": {
+          "query": "label_values(container_fs_usage_bytes{job=~\"kubernetes-.*\", instance=~\"$server\", id=\"/\"}, device)",
+          "refId": "ds_prometheus-device-Variable-Query"
+        },
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
+      },
+      {
+        "auto": false,
+        "auto_count": 30,
+        "auto_min": "10s",
+        "current": {
+          "text": "2m",
+          "value": "2m"
+        },
+        "hide": 2,
+        "name": "interval",
+        "options": [
+          {
+            "selected": true,
+            "text": "2m",
+            "value": "2m"
+          }
+        ],
+        "query": "2m",
+        "refresh": 2,
+        "type": "interval"
+      },
+      {
+        "current": {},
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_DS_PROMETHEUS}"
+        },
+        "definition": "query_result(topk($TOP, max((((count by (instance) (count by (cpu,instance)(node_cpu_seconds_total{instance=~\"$server\"}))) - avg by (instance)(sum by (mode,instance)(irate(node_cpu_seconds_total{mode='idle',instance=~\"$server\"}[${__range_s}s]))))*100) / count by (instance)(count by (cpu,instance)(node_cpu_seconds_total{instance=~\"$server\"}))) by (instance)))",
+        "hide": 2,
+        "includeAll": true,
+        "multi": true,
+        "name": "slow_cpu",
+        "options": [],
+        "query": {
+          "query": "query_result(topk($TOP, max((((count by (instance) (count by (cpu,instance)(node_cpu_seconds_total{instance=~\"$server\"}))) - avg by (instance)(sum by (mode,instance)(irate(node_cpu_seconds_total{mode='idle',instance=~\"$server\"}[${__range_s}s]))))*100) / count by (instance)(count by (cpu,instance)(node_cpu_seconds_total{instance=~\"$server\"}))) by (instance)))",
+          "refId": "ds_prometheus-slow_cpu-Variable-Query"
+        },
+        "refresh": 2,
+        "regex": ".*instance=\"(.*?)\".*",
+        "type": "query"
+      },
+      {
+        "current": {},
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_DS_PROMETHEUS}"
+        },
+        "definition": "query_result(topk($TOP, sum by (instance) (irate(node_disk_reads_completed_total{instance=~\"$server\"}[${__range_s}s])) + sum by (instance) (irate(node_disk_writes_completed_total{instance=~\"$server\"}[${__range_s}s]))))",
+        "hide": 2,
+        "includeAll": true,
+        "multi": true,
+        "name": "slow_iops",
+        "options": [],
+        "query": {
+          "query": "query_result(topk($TOP, sum by (instance) (irate(node_disk_reads_completed_total{instance=~\"$server\"}[${__range_s}s])) + sum by (instance) (irate(node_disk_writes_completed_total{instance=~\"$server\"}[${__range_s}s]))))",
+          "refId": "ds_prometheus-slow_iops-Variable-Query"
+        },
+        "refresh": 2,
+        "regex": ".*instance=\"(.*?)\".*",
+        "type": "query"
+      },
+      {
+        "current": {},
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_DS_PROMETHEUS}"
+        },
+        "definition": "query_result(topk($TOP, max by (instance) (rate(node_disk_read_time_seconds_total{instance=~\"$server\"}[${__range_s}s])/rate(node_disk_reads_completed_total{instance=~\"$server\"}[${__range_s}s]))))",
+        "hide": 2,
+        "includeAll": true,
+        "multi": true,
+        "name": "slow_latencyR",
+        "options": [],
+        "query": {
+          "query": "query_result(topk($TOP, max by (instance) (rate(node_disk_read_time_seconds_total{instance=~\"$server\"}[${__range_s}s])/rate(node_disk_reads_completed_total{instance=~\"$server\"}[${__range_s}s]))))",
+          "refId": "ds_prometheus-slow_latencyR-Variable-Query"
+        },
+        "refresh": 2,
+        "regex": ".*instance=\"(.*?)\".*",
+        "type": "query"
+      },
+      {
+        "current": {},
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_DS_PROMETHEUS}"
+        },
+        "definition": "query_result(topk($TOP, max by (instance) (rate(node_disk_write_time_seconds_total{instance=~\"$server\"}[${__range_s}s])/rate(node_disk_writes_completed_total{instance=~\"$server\"}[${__range_s}s]))))",
+        "hide": 2,
+        "includeAll": true,
+        "multi": true,
+        "name": "slow_latencyW",
+        "options": [],
+        "query": {
+          "query": "query_result(topk($TOP, max by (instance) (rate(node_disk_write_time_seconds_total{instance=~\"$server\"}[${__range_s}s])/rate(node_disk_writes_completed_total{instance=~\"$server\"}[${__range_s}s]))))",
+          "refId": "ds_prometheus-slow_latencyW-Variable-Query"
+        },
+        "refresh": 2,
+        "regex": ".*instance=\"(.*?)\".*",
+        "type": "query"
+      },
+      {
+        "current": {},
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_DS_PROMETHEUS}"
+        },
+        "definition": "query_result(topk($TOP,avg by (instance)(node_load1{instance=~\"$server\"})/ count by (instance) (count by (cpu,instance) (node_cpu_seconds_total) )))",
+        "hide": 2,
+        "includeAll": true,
+        "multi": true,
+        "name": "slow_Load",
+        "options": [],
+        "query": {
+          "query": "query_result(topk($TOP,avg by (instance)(node_load1{instance=~\"$server\"})/ count by (instance) (count by (cpu,instance) (node_cpu_seconds_total) )))",
+          "refId": "ds_prometheus-slow_Load-Variable-Query"
+        },
+        "refresh": 2,
+        "regex": ".*instance=\"(.*?)\".*",
+        "type": "query"
+      },
+      {
+        "current": {},
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_DS_PROMETHEUS}"
+        },
+        "definition": "query_result(topk($TOP, 1-(node_memory_MemAvailable_bytes{instance=~\"$server\"} / node_memory_MemTotal_bytes{instance=~\"$server\"})))",
+        "hide": 2,
+        "includeAll": true,
+        "multi": true,
+        "name": "slow_Mem",
+        "options": [],
+        "query": {
+          "query": "query_result(topk($TOP, 1-(node_memory_MemAvailable_bytes{instance=~\"$server\"} / node_memory_MemTotal_bytes{instance=~\"$server\"})))",
+          "refId": "ds_prometheus-slow_Mem-Variable-Query"
+        },
+        "refresh": 2,
+        "regex": ".*instance=\"(.*?)\".*",
+        "type": "query"
+      },
+      {
+        "current": {},
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_DS_PROMETHEUS}"
+        },
+        "definition": "query_result(topk($TOP, 1 - (node_filesystem_avail_bytes{job=\"kubernetes-node-exporter\",instance=~\"$server\",fstype=~\"xfs\",device!~\"/dev/rbd.*|/dev/mapper.*\",mountpoint!~\".*/(nfs|ebs|rbd)/.*\"} / node_filesystem_size_bytes{job=\"kubernetes-node-exporter\",instance=~\"$server\",fstype=~\"xfs\",device!~\"/dev/rbd.*|/dev/mapper.*\",mountpoint!~\".*/(nfs|ebs|rbd)/.*\"})))",
+        "hide": 2,
+        "includeAll": true,
+        "multi": true,
+        "name": "slow_Partition",
+        "options": [],
+        "query": {
+          "query": "query_result(topk($TOP, 1 - (node_filesystem_avail_bytes{job=\"kubernetes-node-exporter\",instance=~\"$server\",fstype=~\"xfs\",device!~\"/dev/rbd.*|/dev/mapper.*\",mountpoint!~\".*/(nfs|ebs|rbd)/.*\"} / node_filesystem_size_bytes{job=\"kubernetes-node-exporter\",instance=~\"$server\",fstype=~\"xfs\",device!~\"/dev/rbd.*|/dev/mapper.*\",mountpoint!~\".*/(nfs|ebs|rbd)/.*\"})))",
+          "refId": "ds_prometheus-slow_Partition-Variable-Query"
+        },
+        "refresh": 2,
+        "regex": ".*instance=\"(.*?)\".*",
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-3h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Nodes TOP N",
+  "uid": "d36cabb3-4ad6-4fae-b329-ad93ecc8bbbf",
+  "version": 1,
+  "weekStart": ""
+}
