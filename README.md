@@ -9,58 +9,82 @@ Set of Prometheus Grafana dashboards published on
 [grafana.com](https://grafana.com/dashboards?dataSource=prometheus)
 
 ### [ElasticSearch](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/prometheus-ds/elasticsearch)
-This dashboard needs the [elasticsearch exporter](https://github.com/prometheus-community/elasticsearch_exporter) and the [elasticsearch query exporter](https://github.com/braedon/prometheus-es-exporter).
+This dashboard needs the [elasticsearch exporter](https://github.com/prometheus-community/elasticsearch_exporter) and the [elasticsearch query exporter](https://github.com/braedon/prometheus-es-exporter) to be scraped.
 [![ElasticSearch](prometheus-ds/elasticsearch/elasticsearch-1.png)](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/prometheus-ds/elasticsearch)
 
 ### [Grafana](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/prometheus-ds/grafana)
+This dashboard needs grafana metrics endpoint to be scraped.
+```
+- job_name: 'grafana-exporter'
+  static_configs:
+    -  targets: ['grafana:3000']
+
+```
 [![Grafana](prometheus-ds/grafana/grafana.png)](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/prometheus-ds/grafana)
 
 ### [Kafka](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/prometheus-ds/kafka)
-This dashboard needs [kafka exporter](https://github.com/danielqsj/kafka_exporter) and the JMX agent to be acivated.
+This dashboard needs [kafka exporter](https://github.com/danielqsj/kafka_exporter) and the JMX agent to be activated and scraped.
 [![Kafka](prometheus-ds/kafka/kafka-1.png)](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/prometheus-ds/kafka)
 
 ### [Logstash](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/prometheus-ds/logstash)
-This dashboard needs the [logstash exporter](https://github.com/leroy-merlin-br/logstash-exporter).
+This dashboard needs the [logstash exporter](https://github.com/leroy-merlin-br/logstash-exporter) to be scraped.
 [![Logstash](prometheus-ds/logstash/logstash-1.png)](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/prometheus-ds/logstash)
 
 ### [Nodes](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/prometheus-ds/nodes)
+This dashboard needs the node-exporter metrics to be scraped.
 [![Nodes](prometheus-ds/nodes/nodes-1.png)](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/prometheus-ds/nodes)
 
 ### [Nodes TOP](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/prometheus-ds/nodes-top)
+This dashboard needs the node-exporter metrics to be scraped.
 [![Nodes TOP](prometheus-ds/nodes-top/nodes-top-1.png)](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/prometheus-ds/nodes-top)
 
 ### [Pod Node Issues](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/prometheus-ds/pod-node-issues)
+This dashboard needs the [kube state metrics](https://github.com/kubernetes/kube-state-metrics) to be scraped.
 [![Pod Node Issues](prometheus-ds/pod-node-issues/pod-node-issues-1.png)](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/prometheus-ds/pod-node-issues)
 
 ### [Pods](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/prometheus-ds/pods)
+This dashboard needs the [kube state metrics](https://github.com/kubernetes/kube-state-metrics) to be scraped.
 [![Pods](prometheus-ds/pods/pods.png)](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/prometheus-ds/pods)
 
 ### [Pods Java](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/prometheus-ds/pods-java)
-This dashboard needs the JMX agent to be acivated in all Java containers.
+This dashboard needs the JMX agent to be activated and scraped in all Java containers.
 [![Pods Java](prometheus-ds/pods-java/pods-java.png)](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/prometheus-ds/pods-java)
 
 ### [Pods TOP](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/prometheus-ds/pods-top)
+This dashboard needs the [kube state metrics](https://github.com/kubernetes/kube-state-metrics) to be scraped.
 [![Pods TOP](prometheus-ds/pods-top/pods-top-1.png)](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/prometheus-ds/pods-top)
 
 ### [Prometheus](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/prometheus-ds/prometheus)
+This dashboard needs prometheus metrics endpoint to be scraped.
+```
+- job_name: 'prometheus'
+  static_configs:
+    - targets: ['prometheus:8080']
+```
 [![Prometheus](prometheus-ds/prometheus/prometheus.png)](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/prometheus-ds/prometheus)
 
 ### [Prometheus AlertManager](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/prometheus-ds/alertmanager)
+This dashboard needs prometheus alertmanager metrics endpoint to be scraped.
+```
+- job_name: 'prometheus-am'
+  static_configs:
+    - targets: ['prometheus-alertmanager:8080']
+```
 [![Prometheus AlertManager](prometheus-ds/alertmanager/alertmanager.png)](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/prometheus-ds/alertmanager)
 
 ### [PVC](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/prometheus-ds/pvc)
 [![PVC](prometheus-ds/pvc/pvc.png)](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/prometheus-ds/pvc)
 
 ### [Redis](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/prometheus-ds/redis)
-This dashboard needs the [redis exporter](https://github.com/oliver006/redis_exporter).
+This dashboard needs the [redis exporter](https://github.com/oliver006/redis_exporter) to be scraped.
 [![Redis](prometheus-ds/redis/redis-1.png)](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/prometheus-ds/redis)
 
 ### [VPR](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/prometheus-ds/vpr)
-This dashboard needs the VPR to be running.
+This dashboard needs the VPR to be running and scraped.
 [![VPR](prometheus-ds/vpr/vpr-1.png)](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/prometheus-ds/vpr)
 
 ### [Zookeeper](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/prometheus-ds/zookeeper)
-This dashboard needs the JMX agent to be acivated.
+This dashboard needs the JMX agent to be activated and scraped.
 [![Zookeeper](prometheus-ds/zookeeper/zookeeper-1.png)](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/prometheus-ds/zookeeper)
 
 

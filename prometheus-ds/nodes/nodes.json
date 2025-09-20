@@ -5527,9 +5527,7 @@
   "refresh": "",
   "schemaVersion": 41,
   "tags": [
-    "verified",
-    "ACS",
-    "Node"
+    "Nodes"
   ],
   "templating": {
     "list": [
@@ -5600,7 +5598,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "ACS Nodes",
+  "title": "Nodes",
   "uid": "2e849584-06d1-4aeb-8ed0-0ab11276be7b",
   "version": 4,
   "weekStart": ""

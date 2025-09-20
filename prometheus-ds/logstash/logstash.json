@@ -2153,8 +2153,7 @@
   "refresh": "",
   "schemaVersion": 41,
   "tags": [
-    "verified",
-    "CPS"
+    "Logstash"
   ],
   "templating": {
     "list": [
@@ -2330,7 +2329,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "CPS Logstash",
+  "title": "Logstash",
   "uid": "06bacbbe-cb47-460b-b8dc-33aa00964f33",
   "version": 2,
   "weekStart": ""
