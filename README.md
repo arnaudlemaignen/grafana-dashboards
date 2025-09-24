@@ -80,7 +80,7 @@ This dashboard needs the [redis exporter](https://github.com/oliver006/redis_exp
 [![Redis](prometheus-ds/redis/redis-1.png)](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/prometheus-ds/redis)
 
 ### [VPR](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/prometheus-ds/vpr)
-This dashboard needs the VPR to be running and scraped.
+This dashboard needs the [VPR exporter](https://github.com/arnaudlemaignen/vpr-exporter) to be running and scraped.
 [![VPR](prometheus-ds/vpr/vpr-1.png)](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/prometheus-ds/vpr)
 
 ### [Zookeeper](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/prometheus-ds/zookeeper)
