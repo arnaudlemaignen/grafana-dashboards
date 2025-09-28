@@ -32,10 +32,20 @@ This dashboard needs the [logstash exporter](https://github.com/leroy-merlin-br/
 
 ### [Nodes](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/prometheus-ds/nodes)
 This dashboard needs the node-exporter metrics to be scraped.
+
+Below is the node-exporter args
+```
+"/bin/node_exporter","--no-collector.arp","--no-collector.bcache","--no-collector.bonding","--no-collector.btrfs","--no-collector.conntrack","--no-collector.edac","--no-collector.entropy","--no-collector.filefd","--no-collector.hwmon","--no-collector.infiniband","--no-collector.ipvs","--no-collector.mdadm","--no-collector.powersupplyclass","--no-collector.pressure","--no-collector.rapl","--no-collector.schedstat","--no-collector.sockstat","--no-collector.softnet","--no-collector.textfile","--no-collector.thermal_zone","--no-collector.timex","--no-collector.udp_queues","--no-collector.uname","--no-collector.xfs","--no-collector.zfs","--collector.processes"
+```
 [![Nodes](prometheus-ds/nodes/nodes-1.png)](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/prometheus-ds/nodes)
 
 ### [Nodes TOP](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/prometheus-ds/nodes-top)
 This dashboard needs the node-exporter metrics to be scraped.
+
+Below is the node-exporter args
+```
+"/bin/node_exporter","--no-collector.arp","--no-collector.bcache","--no-collector.bonding","--no-collector.btrfs","--no-collector.conntrack","--no-collector.edac","--no-collector.entropy","--no-collector.filefd","--no-collector.hwmon","--no-collector.infiniband","--no-collector.ipvs","--no-collector.mdadm","--no-collector.powersupplyclass","--no-collector.pressure","--no-collector.rapl","--no-collector.schedstat","--no-collector.sockstat","--no-collector.softnet","--no-collector.textfile","--no-collector.thermal_zone","--no-collector.timex","--no-collector.udp_queues","--no-collector.uname","--no-collector.xfs","--no-collector.zfs","--collector.processes"
+```
 [![Nodes TOP](prometheus-ds/nodes-top/nodes-top-1.png)](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/prometheus-ds/nodes-top)
 
 ### [Pod Node Issues](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/prometheus-ds/pod-node-issues)
@@ -73,6 +83,7 @@ This dashboard needs prometheus alertmanager metrics endpoint to be scraped.
 [![Prometheus AlertManager](prometheus-ds/alertmanager/alertmanager.png)](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/prometheus-ds/alertmanager)
 
 ### [PVC](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/prometheus-ds/pvc)
+This dashboard is using the kubelet metrics
 [![PVC](prometheus-ds/pvc/pvc.png)](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/prometheus-ds/pvc)
 
 ### [Redis](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/prometheus-ds/redis)
@@ -159,21 +170,27 @@ Amazon Bedrock is a fully managed service that offers a choice of high-performin
 [![AWS Bedrock Foundation Models](cloudwatch-ds/aws-bedrock-foundation-models/aws-bedrock-foundation-models.png)](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/cloudwatch-ds/aws-bedrock-foundation-models)
 
 ### [AWS Bedrock GuardRails](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/cloudwatch-ds/aws-bedrock-guardrails)
+Amazon Bedrock Guardrails provides configurable safeguards to help safely build generative AI applications at scale.
 [![AWS Bedrock GuardRails](cloudwatch-ds/aws-bedrock-guardrails/aws-bedrock-guardrails.png)](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/cloudwatch-ds/aws-bedrock-guardrails)
 
 ### [AWS Elasticache Redis](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/cloudwatch-ds/aws-elasticache-redis)
+Amazon ElastiCache is a web service that makes it easy to set up, manage, and scale a distributed in-memory data store or cache environment in the cloud.
 [![AWS Elasticache Redis](cloudwatch-ds/aws-elasticache-redis/aws-elasticache-redis-1.png)](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/cloudwatch-ds/aws-elasticache-redis)
 
 ### [AWS FSx](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/cloudwatch-ds/aws-fsx)
+Amazon FSx makes it easy and cost effective to launch, run, and scale feature-rich, high-performance file systems in the cloud.
 [![AWS FSx](cloudwatch-ds/aws-fsx/aws-fsx-1.png)](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/cloudwatch-ds/aws-fsx)
 
 ### [AWS Glue](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/cloudwatch-ds/aws-glue)
+AWS Glue is a serverless data integration service that makes it easy for analytics users to discover, prepare, move, and integrate data from multiple sources.
 [![AWS Glue](cloudwatch-ds/aws-glue/aws-glue-1.png)](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/cloudwatch-ds/aws-glue)
 
 ### [AWS MSK](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/cloudwatch-ds/aws-msk)
+Amazon Managed Streaming for Apache Kafka (Amazon MSK) is a streaming data service that manages Apache Kafka infrastructure and operations, making it easier for developers and DevOps managers to run Apache Kafka applications and Apache Kafka Connect connectors on AWS—without becoming experts in operating Apache Kafka.
 [![AWS MSK](cloudwatch-ds/aws-msk/aws-msk-1.png)](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/cloudwatch-ds/aws-msk)
 
 ### [AWS S3](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/cloudwatch-ds/aws-s3)
+Amazon Simple Storage Service (S3) is a service offered by Amazon Web Services (AWS) that provides object storage through a web service interface.
 [![AWS S3](cloudwatch-ds/aws-s3/aws-s3.png)](https://github.com/arnaudlemaignen/grafana-dashboards/tree/master/cloudwatch-ds/aws-s3)
 
 
